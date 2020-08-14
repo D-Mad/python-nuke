@@ -1,43 +1,20 @@
-def scaleNodes(scalex,scaley):
-    nodes = nuke.selectedNodes()    # GET SELECTED NODES
-    amount = len( nodes )    # GET NUMBER OF SELECTED NODES
-    if amount == 0:    return # DO NOTHING IF NO NODES WERE SELECTED
-
-    allX = sum( [ n.xpos()+n.screenWidth()/2 for n in nodes ] )  # SUM OF ALL X VALUES
-    allY = sum( [ n.ypos()+n.screenHeight()/2 for n in nodes ] ) # SUM OF ALL Y VALUES
-
-    # CENTER OF SELECTED NODES
-    centreX = allX / amount
-    centreY = allY / amount
-
-    # REASSIGN NODE POSITIONS AS A FACTOR OF THEIR DISTANCE TO THE SELECTION CENTER
-    for n in nodes:
-        n.setXpos( centreX + ( n.xpos() - centreX ) * (scalex) )
-        n.setYpos( centreY + ( n.ypos() - centreY ) * (scaley) )
-
-
-
-
 
 
 #help(nuke.setInput)
-listcur = nuke.selectedNodes()
-print(listcur)
-
-  
-
+listcur = nuke.selectedNodes()  
 m = nuke.nodes.Merge(inputs=(listcur[0],listcur[1]))
+m.setXpos(int(listcur[1]['xpos'].value()))
+m.setYpos(int(listcur[1]['ypos'].value())+200)
 i =  2
 t = range(2,len(listcur))
 
-m.knob('selected').setValue(True)
-nukescripts.swapAB(nuke.selectedNode())
+
 for i in t:  
     
      
     m = nuke.nodes.Merge(inputs=(m,listcur[i])) 
-    m.knob('selected').setValue(True)
-    nukescripts.swapAB(nuke.selectedNode())
+    m.setXpos(int(listcur[i]['xpos'].value()))
+    m.setYpos(int(listcur[1]['ypos'].value())+200)
     
     print(i)  
     i = i+1
@@ -45,4 +22,3 @@ for i in t:
        break ; 
     
     
-scaleNodes(2,7)
