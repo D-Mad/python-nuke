@@ -3,12 +3,14 @@ listcur = nuke.selectedNodes()
  
 if(int(listcur[0]['xpos'].value())) >  (int(listcur[len(listcur)-1]['xpos'].value())):
    n = nuke.nodes.Merge(inputs=(listcur[len(listcur)-1],listcur[len(listcur)-2]))
+   n.knob('operation').setValue('plus')
    n.setXpos(int(listcur[len(listcur)-2]['xpos'].value()))
    n.setYpos(int(listcur[len(listcur)-2]['ypos'].value())+200)
    k = 0
    t1= range(0,len(listcur)-2)
    for  k in t1:
      n = nuke.nodes.Merge(inputs=(n,listcur[len(listcur)-3-k])) 
+     n.knob('operation').setValue('plus')
      n.setXpos(int(listcur[len(listcur)-3-k]['xpos'].value()))
      n.setYpos(int(listcur[len(listcur)-2]['ypos'].value())+200)
      k = k+1
@@ -16,6 +18,7 @@ if(int(listcur[0]['xpos'].value())) >  (int(listcur[len(listcur)-1]['xpos'].valu
         break ;          
 else:
     m = nuke.nodes.Merge(inputs=(listcur[0],listcur[1]))
+    m.knob('operation').setValue('plus')
     m.setXpos(int(listcur[1]['xpos'].value()))
     m.setYpos(int(listcur[1]['ypos'].value())+200)
   
@@ -23,7 +26,8 @@ else:
     t = range(2,len(listcur)) 
     for i in t: 
 
-       m = nuke.nodes.Merge(inputs=(m,listcur[i])) 
+       m = nuke.nodes.Merge(inputs=(m,listcur[i]))
+       m.knob('operation').setValue('plus') 
        m.setXpos(int(listcur[i]['xpos'].value()))
        m.setYpos(int(listcur[1]['ypos'].value())+200)
     
