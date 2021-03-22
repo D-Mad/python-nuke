@@ -1,5 +1,11 @@
 """
- #How to install from NukeShare (nukepedia)
+-Trước khi mở file init.py lên,tao thư mục tên python trong thư mục .Nuke
+mở file init.py lên,dán cái này vô 
+nuke.pluginAddPath('./python')
+
+
+- Mở menu.py dán cái này vô
+
 
 import Utilities
 
